@@ -1,0 +1,26 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+
+Transform: 'AWS::Serverless-2016-10-31'
+
+Parameters:
+  MacroName:
+    Type: String
+    Default: SimplePipeline
+
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: python3.6
+      MemorySize: 128
+      CodeUri: dist/
+      Environment:
+        Variables:
+          MACRO_NAME: !Ref MacroName
+  Macro:
+    Type: AWS::CloudFormation::Macro
+    Properties:
+      Name: !Ref MacroName
+      FunctionName: !GetAtt Function.Arn
