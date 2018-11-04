@@ -10,7 +10,7 @@ build:
 	cp -r src/. dist
 
 test:
-	pipenv run python -m pytest tests/
+	pipenv run python -m pytest -v tests/
 
 clean:
 	rm -rf dist/
